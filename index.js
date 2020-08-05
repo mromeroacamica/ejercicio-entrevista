@@ -37,11 +37,23 @@ Array.prototype.sortBy = (function() {
     autos.auto=auto;
     autos.puertas=puertas;
     autos.greeting = function() {
-      console.log(`Marca: ${this.marca} // Modelo: ${this.Modelo} // ${this.puertas}: ${this.Detalle} // Precio: ${this.Precio} `);
+      console.log(`Marca: ${this.marca} // Modelo: ${this.Modelo} // ${this.puertas}: ${this.Detalle} // Precio: $${this.Precio.toFixed(2).toLocaleString()} `);
     };
     autos.caro = function() {
-      console.log(`Vehiculo mas caro:  ${this.marca}  ${this.Modelo}`);
+      console.log(`=============================
+      \nVehiculo mas caro:  ${this.marca}  ${this.Modelo}`);
     };
+    autos.barato = function() {
+      console.log(`Vehiculo mas barato:  ${this.marca}  ${this.Modelo}`);
+    };
+    autos.conY = function() {
+      console.log(`Vehículo que contiene en el modelo la letra ‘Y’:  ${this.marca}  ${this.Modelo} $${this.Precio.toFixed(2).toLocaleString()}`);
+    };
+    autos.mostrarMarcaModelo = function() {
+      console.log(`${this.marca}  ${this.Modelo}`);
+    };
+    
+
     return autos;
   }
 
@@ -88,22 +100,20 @@ function obtenerRodados(arrayRodados) {
         if (marca.includes('Y')) {
             rodadoContieneY = arrayRodados[i];
         }
-        console.log(`Marca: ${marca} // Modelo: ${Modelo} // ${puertas}: ${Detalle} // Precio: $${Precio.toFixed(2).toLocaleString()}`);
+        
+        arrayRodados[i].greeting();
         
     }
     //mostrando los rodados de mayor a menor
     function mostrarRodadosOrdenados(array){
         array.forEach(element => {
-            console.log(`${element.marca}  ${element.Modelo}`)
+            element.mostrarMarcaModelo();
         });
     };
     
-    
-    console.log(`=============================
-    \nVehículo más caro: ${rodadoMasCaro.marca} ${rodadoMasCaro.Modelo}
-    \nVehículo más barato: ${rodadoMasBarato.marca} ${rodadoMasBarato.Modelo}
-    \nVehículo que contiene en el modelo la letra ‘Y’: ${rodadoContieneY.marca} ${rodadoContieneY.Modelo} $${rodadoContieneY.Precio.toFixed(2).toLocaleString()}
-    `)
+    rodadoMasCaro.caro();
+    rodadoMasBarato.barato();
+    rodadoContieneY.conY();
     console.log(`=============================`)
     rodadosOrdenados=rodados.sortBy('Precio');
     console.log(`Vehículos ordenados por precio de mayor a menor:`)
