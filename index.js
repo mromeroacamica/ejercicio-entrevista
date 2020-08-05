@@ -3,6 +3,31 @@ const http = require("http");
 const hostname = '127.0.0.1';
 const port = 3000;
 
+Array.prototype.sortBy = (function() {
+    var sorters = {
+      string: function(a, b) {
+        if (a < b) {
+          return -1;
+        } else if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
+      },
+  
+      number: function(a, b) {
+        return b - a;
+      }
+    };
+  
+    return function(prop) {
+      var type = typeof this[0][prop] || 'string';
+      return this.sort(function(a, b) {
+        return sorters[type](a[prop], b[prop]);
+      });
+    };
+  })();
+
 let rodados = [
     {
         marca: 'Peugeot',
@@ -55,6 +80,7 @@ function obtenerRodados(arrayRodados) {
     let rodadoMasCaro;
     let rodadoMasBarato = {};
     let rodadoContieneY;
+    let rodadosOrdenados;
     for (let i = 0; i < arrayRodados.length; i++) {
         let indexMenosUno = i - 1;
         const { marca, Modelo, Detalle, Precio, auto, puertas } = arrayRodados[i];
@@ -75,13 +101,25 @@ function obtenerRodados(arrayRodados) {
             rodadoContieneY = arrayRodados[i];
         }
         console.log(`Marca: ${marca} // Modelo: ${Modelo} // ${puertas}: ${Detalle} // Precio: $${Precio.toFixed(2).toLocaleString()}`);
+        
     }
+    //mostrando los rodados de mayor a menor
+    function mostrarRodadosOrdenados(array){
+        array.forEach(element => {
+            console.log(`${element.marca}  ${element.Modelo}`)
+        });
+    };
+    
+    
     console.log(`=============================
     \nVehículo más caro: ${rodadoMasCaro.marca} ${rodadoMasCaro.Modelo}
     \nVehículo más barato: ${rodadoMasBarato.marca} ${rodadoMasBarato.Modelo}
     \nVehículo que contiene en el modelo la letra ‘Y’: ${rodadoContieneY.marca} ${rodadoContieneY.Modelo} $${rodadoContieneY.Precio.toFixed(2).toLocaleString()}
     `)
     console.log(`=============================`)
+    rodadosOrdenados=rodados.sortBy('Precio');
+    console.log(`Vehículos ordenados por precio de mayor a menor:`)
+    mostrarRodadosOrdenados(rodadosOrdenados);
 
 };
 
