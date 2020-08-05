@@ -28,40 +28,28 @@ Array.prototype.sortBy = (function() {
     };
   })();
 
-let rodados = [
-    {
-        marca: 'Peugeot',
-        Modelo: '206',
-        Detalle: 4,
-        Precio: 200000,
-        auto: true,
-        puertas: 'Puertas'
-    },
-    {
-        marca: 'Honda',
-        Modelo: 'Titan',
-        Detalle: 125,
-        Precio: 60000,
-        auto: false,
-        puertas: 'Cilindrada'
-    },
-    {
-        marca: 'Peugeot',
-        Modelo: '208',
-        Detalle: 5,
-        Precio: 250000,
-        auto: true,
-        puertas: 'Puertas'
-    },
-    {
-        marca: 'Yamaha',
-        Modelo: 'YBR',
-        Detalle: 160,
-        Precio: 80500.50,
-        auto: false,
-        puertas: 'Cilindrada'
+  function createNewPerson(marca,Modelo,Detalle,Precio,auto,puertas) {
+    var autos = {};
+    autos.marca = marca;
+    autos.Modelo=Modelo;
+    autos.Detalle=Detalle;
+    autos.Precio=Precio;
+    autos.auto=auto;
+    autos.puertas=puertas;
+    autos.greeting = function() {
+      console.log(`Marca: ${this.marca} // Modelo: ${this.Modelo} // ${this.puertas}: ${this.Detalle} // Precio: ${this.Precio} `);
+    };
+    autos.caro = function() {
+      console.log(`Vehiculo mas caro:  ${this.marca}  ${this.Modelo}`);
+    };
+    return autos;
+  }
 
-    }
+let rodados = [
+  createNewPerson('Peugeot','206',4,200000,true,'Puertas'),
+  createNewPerson('Honda','Titan',125,60000,false,'Cilindrada'),
+  createNewPerson('Peugeot','208',5,250000,true,'Puertas'),
+  createNewPerson('Yamaha','YBR',160,80500.50,false,'Cilindrada')
 
 ];
 
